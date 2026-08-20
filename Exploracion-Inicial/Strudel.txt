@@ -1,0 +1,26 @@
+setcpm(24)
+
+const { visualid } = createParams('visualid')
+
+// $testTrack1: sound
+// (`
+// [sine triangle triangle triangle]*4,
+// <hh hh [hh - - hh [-]*20]> 
+// `)
+//no se como poner "-" 20 veces multiplicandolo
+
+const Track1 = note("c3 c4 e3 [d4 d3,d2]/2")
+  .sound("piano triangle")
+  .clip(2.25)
+  .visualid("track1")
+
+const Piano = note("<g4*4 g3*4 a4*4>")
+  .sound("piano")
+  .clip(1)
+  .visualid("pianos")
+
+all(x => x._pianoroll())
+
+$SONG : stack(Track1, Piano)
+$OSC : stack(Track1.osc(), Piano.osc())
+
